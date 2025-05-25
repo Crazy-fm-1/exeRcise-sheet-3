@@ -17,3 +17,9 @@ Strengths:
 Weaknesses:
 - the history of changes takes up file space.
 - git doesn't work in the background and the commands always have to be executed manually.
+
+## Exercise 2
+
+### a)
+
+https://github.com/Crazy-fm-1/exeRcise-sheet-3
