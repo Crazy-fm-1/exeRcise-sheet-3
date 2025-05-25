@@ -50,3 +50,11 @@ series <- tibble(
   series_length = c(4, 4, 4, 4, 3, 3, 3, 2, 2))
 print(series)
 ```
+
+### c)
+
+```{r}
+resp <- read_csv("public_response.csv")
+resp$cinema_score <- factor(resp$cinema_score, levels = c("A-", "A", "A+"))
+movies <- left_join(pixar, resp, by = "film")
+```
