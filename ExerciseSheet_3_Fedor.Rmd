@@ -76,3 +76,11 @@ ggplot() +
 ```
 
 In general, later releases within a given series tend to have lower Metacritic scores compared to earlier ones.
+
+## Exercise 4
+
+### b)
+
+```{r}
+vac <- read_csv("Vaccine Coverage and Disease Burden - WHO (2017).csv")
+```
