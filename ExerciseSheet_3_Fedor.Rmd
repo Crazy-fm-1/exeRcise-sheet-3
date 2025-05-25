@@ -84,3 +84,8 @@ In general, later releases within a given series tend to have lower Metacritic s
 ```{r}
 vac <- read_csv("Vaccine Coverage and Disease Burden - WHO (2017).csv")
 ```
+
+### c)
+
+- Dataset name: Vaccine Coverage and Disease Burden - WHO (2017)
+- Link: https://github.com/owid/owid-datasets/tree/master/datasets/Vaccine%20Coverage%20and%20Disease%20Burden%20-%20WHO%20(2017)
