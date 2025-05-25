@@ -23,3 +23,17 @@ Weaknesses:
 ### a)
 
 https://github.com/Crazy-fm-1/exeRcise-sheet-3
+
+## Exercise 3
+
+### a)
+
+```{r}
+library(tidyverse)
+pixar <- read_csv("pixar_films.csv") %>% filter(!is.na(film))
+pixar$film_rating <- as.factor(pixar$film_rating)
+```
+
+The variable film_rating has the possible values G, PG and N/A. G stands for general audiences and means that the movie may be viewed by individuals of any age. PG stands for parental guidance suggested and advises parents to check whether the movie contains any content they wouldn't want their children to see before letting said children view it. N/A means that the movie hasn't received a rating.
+
+It is appropriate to store this variable as a factor because it is nominal and has a limited number of possible values.
