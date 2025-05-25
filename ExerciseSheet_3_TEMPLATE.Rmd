@@ -1,0 +1,19 @@
+---
+title: "Exercise #3"
+subtitle: "Fortgeschrittene Statistische Software für NF"
+author: "Fedor Miasnikov (12886680)"
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+## Exercise 1
+
+### d)
+
+Strengths:
+- git enables collaboration with other software developers.
+- git allows one to track the history of changes made to a document.
+
+Weaknesses:
+- the history of changes takes up file space.
+- git doesn't work in the background and the commands always have to be executed manually.
