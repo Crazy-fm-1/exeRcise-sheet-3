@@ -82,10 +82,16 @@ In general, later releases within a given series tend to have lower Metacritic s
 ### b)
 
 ```{r}
-vac <- read_csv("Vaccine Coverage and Disease Burden - WHO (2017).csv")
+vac <- read_csv("Vaccine Coverage and Disease Burden - WHO (2017).csv") %>% janitor::clean_names()
 ```
 
 ### c)
 
 - Dataset name: Vaccine Coverage and Disease Burden - WHO (2017)
 - Link: https://github.com/owid/owid-datasets/tree/master/datasets/Vaccine%20Coverage%20and%20Disease%20Burden%20-%20WHO%20(2017)
+
+### d)
+
+Lately, measles rates have been rising in certain areas of the world, including some parts of the US, as debates about the effectiveness of measles vaccines continue.
+
+I'm interested in the correlation between the measles (MCV) immunization coverage among one year old children and the number of confirmed measles cases in a given year. Though this measure is imperfect, it can provide some information about the effectiveness of measles-containing vaccines. I've chosen to examine the data for Africa as it still remains a hotbed for measles.
