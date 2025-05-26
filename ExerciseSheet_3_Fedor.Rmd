@@ -64,9 +64,9 @@ movies <- left_join(pixar, resp, by = "film")
 ```{r}
 series <- left_join(series, resp, by = "film")
 
-series %>% filter(!is.na(metacritic.x)) %>%
+series %>% filter(!is.na(metacritic)) %>%
 ggplot() +
-  geom_bar(aes(x = film, y = metacritic.x, fill = series),
+  geom_bar(aes(x = film, y = metacritic, fill = series),
            position = "dodge", stat = "identity") +
   labs(fill = "", x = "Movie title", y = "Metacritic rating",
        title = "Metacritic ratings of Pixar series") +
