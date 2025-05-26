@@ -95,3 +95,63 @@ vac <- read_csv("Vaccine Coverage and Disease Burden - WHO (2017).csv") %>% jani
 Lately, measles rates have been rising in certain areas of the world, including some parts of the US, as debates about the effectiveness of measles vaccines continue.
 
 I'm interested in the correlation between the measles (MCV) immunization coverage among one year old children and the number of confirmed measles cases in a given year. Though this measure is imperfect, it can provide some information about the effectiveness of measles-containing vaccines. I've chosen to examine the data for Africa as it still remains a hotbed for measles.
+
+### e) and f)
+
+```{r measles, fig.cap="Measles immunization coverage and confirmed measles cases in Africa"}
+afr <- vac %>% filter(entity == "Africa" &
+  !is.na(measles_mcv_immunization_coverage_among_1_year_olds_who_2017) &
+  !is.na(number_of_confirmed_measles_cases_who_2017)) %>%
+  select(entity, measles_mcv_immunization_coverage_among_1_year_olds_who_2017,
+  number_of_confirmed_measles_cases_who_2017, year) %>%
+  rename(vac_rate = measles_mcv_immunization_coverage_among_1_year_olds_who_2017) %>%
+  rename(cases = number_of_confirmed_measles_cases_who_2017)
+
+stand_afr <- afr %>%
+  mutate(vac_rate = (vac_rate - min(vac_rate)) / (max(vac_rate) - min (vac_rate)),
+  cases = (cases - min(cases)) / (max(cases) - min (cases))
+  )
+
+sup <- tibble(year = c(2014, 2014, 2015, 2015),
+  cat = c("Measles (MCV) immunization coverage among one year old children",
+  "Number of confirmed measles cases", 
+  "Measles (MCV) immunization coverage among one year old children",
+  "Number of confirmed measles cases"),
+  value = c(0.97058824, 0.02681496, 1, 0.01143898))
+
+ggplot(data = stand_afr) +
+  geom_line(aes(x = year, y = vac_rate),
+  color = "red") +
+  geom_line(aes(x = year, y = cases, linetype = ),
+  color = "blue") +
+  scale_y_continuous(labels = c("0%", "20%", "40%", "60%", "80%", "100%"),
+  breaks = ((seq(0, 100, 20) - min(afr$vac_rate)) / (max(afr$vac_rate) - min (afr$vac_rate))),
+  limits = (c(0, 80) - min(afr$vac_rate)) / (max(afr$vac_rate) - min (afr$vac_rate)),
+  sec.axis = sec_axis(~.,
+  labels = seq(0, 1500000, 300000),
+  breaks = (seq(0, 1500000, 300000) - min(afr$cases)) / (max(afr$cases) - min (afr$cases))
+  )
+  ) +
+  geom_line(data = sup, aes(x = year, y = value, color = cat)) +
+  scale_color_manual(labels = c("Measles (MCV) immunization coverage\namong one year old children",
+  "Number of confirmed measles cases"), values = c("red", "blue")) +
+  labs(color = "", x = "Year", y = "") +
+  theme(
+  axis.text.y.left = element_text(color = "red"),
+  axis.text.y.right = element_text(color = "blue")
+  )
+```
+
+Figure \@ref(fig:measles) indicates a strong, linear, negative correlation between the measles (MCV) immunization coverage among one year old children and the number of yearly confirmed measles cases. The Pearson correlation coefficient for these variables is `r round(cor(afr$vac_rate, afr$cases), 3)`, which substantiates this claim.
+
+To further investigate the effect of measles vaccination on the number of confirmed measles cases, I construct a linear model with the measles (MCV) immunization coverage among one year old children as the independent variable and the number of yearly confirmed measles cases as the dependent variable.
+
+```{r}
+model <- lm(cases ~ vac_rate, data = afr)
+library(stargazer)
+stargazer(model, type = "text", ci = TRUE, star.cutoffs = c(0.05, 0.01, 0.001), ci.level = 0.95)
+```
+
+This model indicates that, if the measles vaccination rate among one year old children increases by 1% c. p., we expect the number of yearly confirmed measles cases to fall by 21378.53. This is statistically significant on a 0.1% level. The values for R^2^ and adjusted R^2^ show that the measles vaccination rate among one year old children is able to explain over 92% of the variability of the yearly confirmed measles cases.
+
+Thus, the results of this investigation hint that increasing measles (MCV) immunization coverage among one year old children could cause a reduction in the yearly number of confirmed measles cases. This stands as an argument for the general effectiveness of measles vaccines at preventing measles infection.
