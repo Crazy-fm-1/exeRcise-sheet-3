@@ -66,9 +66,9 @@ series <- left_join(series, resp, by = "film")
 
 series %>% filter(!is.na(metacritic)) %>%
 ggplot() +
-  geom_bar(aes(x = film, y = metacritic, fill = series),
+  geom_bar(aes(y = film, x = metacritic, fill = series),
            position = "dodge", stat = "identity") +
-  labs(fill = "", x = "Movie title", y = "Metacritic rating",
+  labs(fill = "", y = "Movie title", x = "Metacritic rating",
        title = "Metacritic ratings of Pixar series") +
   theme(
     plot.title = element_text(hjust = 0.5)
@@ -99,6 +99,7 @@ I'm interested in the correlation between the measles (MCV) immunization coverag
 ### e) and f)
 
 ```{r measles, fig.cap="Measles immunization coverage and confirmed measles cases in Africa"}
+options(scipen = 999)
 afr <- vac %>% filter(entity == "Africa" &
   !is.na(measles_mcv_immunization_coverage_among_1_year_olds_who_2017) &
   !is.na(number_of_confirmed_measles_cases_who_2017)) %>%
